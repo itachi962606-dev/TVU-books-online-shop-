@@ -294,7 +294,7 @@ function injectAuthModal() {
     <div class="modal-backdrop" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
       <div class="modal-dialog auth-dialog">
         <div class="modal-header">
-          <h3 class="modal-title" id="auth-title">Sign Up</h3>
+          <h3 class="modal-title" id="auth-title">Login to your account</h3>
           <button class="modal-close-btn" onclick="closeAuthModal()" aria-label="Close">&times;</button>
         </div>
         <div class="modal-body">
@@ -308,7 +308,7 @@ function injectAuthModal() {
           <div class="auth-divider"><span>or use email</span></div>
 
           <!-- LOGIN -->
-          <form id="login-form" onsubmit="emailLogin(event)" novalidate>
+          <form id="login-form" onsubmit="emailLogin(event)" aria-hidden="false" novalidate>
             <div class="form-group">
               <label class="form-label" for="li-email">Email</label>
               <input type="email" id="li-email" class="form-control" placeholder="you@example.com" autocomplete="email">
@@ -319,11 +319,11 @@ function injectAuthModal() {
               <div style="text-align:right; margin-top:.35rem;"><a href="#" onclick="forgotPassword(); return false;" class="auth-link">Forgot password?</a></div>
             </div>
             <button type="submit" class="btn btn-login-blue btn-lg" style="width:100%;" id="login-submit">Login</button>
-            <p class="auth-switch">New to TVU Books? <a href="#" class="auth-link" onclick="switchAuthMode('signup'); return false;">Sign Up</a></p>
+            <p class="auth-switch">Don't have an account? <a href="#" class="auth-link" onclick="switchAuthMode('signup'); return false;">Sign Up</a></p>
           </form>
 
           <!-- SIGN UP -->
-          <form id="signup-form" onsubmit="emailSignUp(event)" style="display:none;" novalidate>
+          <form id="signup-form" onsubmit="emailSignUp(event)" style="display:none;" aria-hidden="true" novalidate>
             <div class="form-group">
               <label class="form-label" for="su-name">Full Name</label>
               <input type="text" id="su-name" class="form-control" placeholder="Your full name" autocomplete="name">
@@ -371,8 +371,14 @@ function switchAuthMode(mode) {
   set('auth-title', el => el.textContent = isLogin ? 'Login to your account' : 'Sign Up');
   set('auth-tab-login', el => el.classList.toggle('active', isLogin));
   set('auth-tab-signup', el => el.classList.toggle('active', !isLogin));
-  set('login-form', el => el.style.display = isLogin ? 'block' : 'none');
-  set('signup-form', el => el.style.display = isLogin ? 'none' : 'block');
+  set('login-form', el => {
+    el.style.display = isLogin ? 'block' : 'none';
+    el.setAttribute('aria-hidden', String(!isLogin));
+  });
+  set('signup-form', el => {
+    el.style.display = isLogin ? 'none' : 'block';
+    el.setAttribute('aria-hidden', String(isLogin));
+  });
   set('auth-google-label', el => el.textContent = 'Continue with Google');
   showAuthMessage('');
 }
@@ -486,7 +492,7 @@ function renderHeader() {
       </div>
     </div>
   ` : `
-    <button type="button" onclick="openAuthModal('signup')" class="btn btn-login-blue btn-sm">Sign Up</button>
+    <button type="button" onclick="openAuthModal('login')" class="btn btn-login-blue btn-sm">Login</button>
   `;
 
   let html;
