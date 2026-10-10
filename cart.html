@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart | TVU Books Shop</title>
+  <link rel="icon" type="image/png" href="assets/tvu-logo-sm.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <style>
+    /* critical header styles (prevents a giant logo while the main stylesheet loads) */
+    #site-header-container:empty { min-height: 72px; }
+    .brand-logo-img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
+    .brand-wrapper { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .brand-name { display: block; font-size: 1.15rem; font-weight: 800; line-height: 1.1; }
+    .brand-sub { display: block; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; }
+    .site-header { background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: .55rem 1rem; }
+  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div id="site-header-container"></div>
+
+  <main class="container" style="flex:1; padding-top:1.5rem; padding-bottom:3rem;">
+    <div id="cart-root">
+      <div class="empty-state">
+        <div class="spinner" style="border-color: var(--primary); border-top-color: transparent; width: 36px; height: 36px; margin-bottom: 1rem;"></div>
+        <p style="font-weight:600; color:var(--text-muted);">Loading your cart...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Checkout Modal -->
+  <div class="modal-backdrop" id="cart-checkout-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Delivery Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('cart-checkout-modal')" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="cart-checkout-form">
+          <div class="form-group">
+            <label class="form-label" for="co-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="co-name" class="form-control" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="co-phone">Phone / WhatsApp Number <span class="required">*</span></label>
+            <input type="tel" id="co-phone" class="form-control" required placeholder="e.g. 9876543210">
+            <div class="form-help">Sellers will contact this number for campus handover.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="co-address">Delivery / Handover Address <span class="required">*</span></label>
+            <textarea id="co-address" class="form-control" rows="2" required placeholder="e.g. TVU Campus, Department Block A / Hostel Room 204"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Payment Method</label>
+            <input type="text" class="form-control" value="Cash on Delivery (COD)" readonly style="background-color:var(--secondary-light); color:var(--secondary); font-weight:700;">
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:1rem; margin-top:1rem;">
+            <div>
+              <span class="meta-label">Total Payable</span>
+              <div id="co-total" style="font-size:1.4rem; font-weight:800; color:var(--primary);">₹0</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Confirm Order (COD)</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmed -->
+  <div class="modal-backdrop" id="order-confirmed-modal" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="success-modal-content">
+        <div class="success-checkmark-circle">✓</div>
+        <h2 style="font-size:1.6rem; font-weight:800; color:var(--primary); margin-bottom:0.35rem;">Order Confirmed!</h2>
+        <p id="confirmed-summary" style="color:var(--text-muted); font-size:0.95rem; margin-bottom:0.75rem;">Your order has been placed successfully.</p>
+        <span style="font-size:0.85rem; color:var(--text-muted);">Payment Method: <strong>Cash on Delivery</strong></span>
+        <div class="success-order-id" id="confirmed-order-id">#TVU-00000</div>
+        <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+          <a href="orders.html" class="btn btn-primary">View My Orders</a>
+          <a href="index.html" class="btn btn-outline">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom"><p>© 2026 TVU Books Shop • Thiruvalluvar University</p></div>
+    </div>
+  </footer>
+
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <script defer src="js/firebase-config.js"></script>
+  <script defer src="js/notifications.js"></script>
+  <script defer src="js/email-service.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/catalog-seed.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script defer src="js/cart-page.js"></script>
+</body>
+</html>

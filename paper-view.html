@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Paper | TVU Books Shop</title>
+  <link rel="icon" type="image/png" href="assets/tvu-logo-sm.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <style>
+    /* critical header styles (prevents a giant logo while the main stylesheet loads) */
+    #site-header-container:empty { min-height: 72px; }
+    .brand-logo-img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
+    .brand-wrapper { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .brand-name { display: block; font-size: 1.15rem; font-weight: 800; line-height: 1.1; }
+    .brand-sub { display: block; font-size: .7rem; letter-spacing: .04em; text-transform: uppercase; }
+    .site-header { background: #fff; border-bottom: 1px solid #e5e7eb; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: .55rem 1rem; }
+  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div id="site-header-container"></div>
+
+  <main class="container" style="flex:1; padding-top:1.5rem; padding-bottom:3rem;">
+    <div class="paper-toolbar no-print">
+      <a href="download-syllabus.html#papers" class="btn btn-outline btn-sm">← All Question Papers</a>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">🖨 Print / Save as PDF</button>
+    </div>
+    <div id="paper-root"></div>
+  </main>
+
+  <footer class="site-footer no-print">
+    <div class="container"><div class="footer-bottom"><p>© 2026 TVU Books Shop • Thiruvalluvar University</p></div></div>
+  </footer>
+
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script defer src="js/firebase-config.js"></script>
+  <script defer src="js/notifications.js"></script>
+  <script defer src="js/email-service.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/cart.js"></script>
+  <script defer src="js/catalog-seed.js"></script>
+  <script defer src="js/papers-seed.js"></script>
+  <script defer src="js/paper-view.js"></script>
+</body>
+</html>
