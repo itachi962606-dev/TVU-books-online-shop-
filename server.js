@@ -44,10 +44,11 @@ app.all('/api/chat', async (req, res) => {
   }
 });
 
-// Serve static project files
-app.use(express.static(__dirname, { dotfiles: 'deny', index: 'index.html' }));
 // never expose server-side code / secrets over HTTP
 app.use(['/api', '/server.js', '/package.json', '/.env'], (req, res) => res.status(404).end());
+
+// Serve static project files
+app.use(express.static(__dirname, { dotfiles: 'deny', index: 'index.html' }));
 
 // Fallback to index.html for root if needed
 app.get('/', (req, res) => {
@@ -66,4 +67,3 @@ app.listen(PORT, () => {
   console.log(`✨ AI Model:        ${process.env.GEMINI_MODEL || process.env.AI_MODEL || 'gemini-3.5-flash'}`);
   console.log('==================================================\n');
 });
-
