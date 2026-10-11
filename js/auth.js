@@ -33,6 +33,12 @@ function initAuth() {
   renderHeader();
 
   auth.onAuthStateChanged(async (user) => {
+    if (user && auth.currentUser && auth.currentUser.uid !== user.uid) return;
+    const previousUid = currentAuthUser && currentAuthUser.uid;
+    if (!user || (previousUid && previousUid !== user.uid)) {
+      currentCustomerData = null;
+      currentSellerData = null;
+    }
     currentAuthUser = user;
     if (authFlowLock) return;           // the login/sign-up flow will finish the job itself
     if (user) { hintUser = null; renderHeader(); }   // show the name / avatar right away
@@ -41,6 +47,12 @@ function initAuth() {
 }
 
 async function handleUserReady(user, extra) {
+  if (user && auth.currentUser && auth.currentUser.uid !== user.uid) return;
+  const previousUid = currentAuthUser && currentAuthUser.uid;
+  if (!user || (previousUid && previousUid !== user.uid)) {
+    currentCustomerData = null;
+    currentSellerData = null;
+  }
   currentAuthUser = user;
   if (user) {
     try {
@@ -48,6 +60,7 @@ async function handleUserReady(user, extra) {
     } catch (err) {
       console.error("Profile sync error:", err);
     }
+    if (!currentAuthUser || currentAuthUser.uid !== user.uid) return;
     try {
       localStorage.setItem('tvu_user_hint', JSON.stringify({
         displayName: (currentCustomerData && currentCustomerData.name) || user.displayName || '',
@@ -62,6 +75,7 @@ async function handleUserReady(user, extra) {
     try { localStorage.removeItem('tvu_user_hint'); } catch (e) {}
     stopCountListeners();
   }
+  if (user ? !currentAuthUser || currentAuthUser.uid !== user.uid : currentAuthUser) return;
   renderHeader();
   window.dispatchEvent(new CustomEvent('authStateChanged', { detail: { user } }));
 }
@@ -73,6 +87,7 @@ async function syncCustomerProfile(user, extra = {}) {
   if (!db) return;
   const customerRef = db.collection('customers').doc(user.uid);
   const doc = await customerRef.get();
+  if (!currentAuthUser || currentAuthUser.uid !== user.uid) return;
   const now = firebase.firestore.FieldValue.serverTimestamp();
   const existing = doc.exists ? doc.data() : null;
 
@@ -90,6 +105,7 @@ async function syncCustomerProfile(user, extra = {}) {
       updatedAt: now
     };
     await customerRef.set(payload);
+    if (!currentAuthUser || currentAuthUser.uid !== user.uid) return;
     currentCustomerData = payload;
 
     if (user.email && typeof sendWelcomeEmail === 'function') {

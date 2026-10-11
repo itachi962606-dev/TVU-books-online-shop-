@@ -15,6 +15,42 @@ let filteredQuestionPapers = [];
 let selectedQpDepartment = 'All';
 let currentActiveTab = 'syllabus';
 
+function updateSyllabusAccountDisplay(event) {
+  const link = document.getElementById('syllabus-account-link');
+  const nameEl = document.getElementById('syllabus-account-name');
+  const emailEl = document.getElementById('syllabus-account-email');
+  const avatarEl = document.getElementById('syllabus-account-avatar');
+  if (!link || !nameEl || !emailEl || !avatarEl) return;
+
+  const user = event.detail && event.detail.user;
+  const customer = user && typeof window.getCurrentCustomer === 'function'
+    ? window.getCurrentCustomer()
+    : null;
+  const name = user
+    ? (customer && customer.name) || user.displayName || user.email || 'Account'
+    : 'Login';
+  const email = user ? user.email || (customer && customer.email) || '' : '';
+
+  nameEl.textContent = name;
+  emailEl.textContent = email;
+  emailEl.hidden = !email;
+  avatarEl.textContent = name.charAt(0).toUpperCase();
+  link.href = user ? 'profile.html' : '#login';
+  link.title = email || (user ? name : 'Log in to your account');
+  link.setAttribute('aria-label', user
+    ? `Signed in as ${name}${email ? `, ${email}` : ''}`
+    : 'Log in to your account');
+}
+
+window.addEventListener('authStateChanged', updateSyllabusAccountDisplay);
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('#syllabus-account-link');
+  if (link && !auth.currentUser) {
+    event.preventDefault();
+    openAuthModal('login');
+  }
+});
+
 // Department Icon Map
 const DEPT_ICONS = {
   'Computer Science': '💻',

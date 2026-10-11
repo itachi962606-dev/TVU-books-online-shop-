@@ -42,13 +42,16 @@
         <span>Home</span>
       </a>
 
-      <!-- Right: Tharunesh Profile Pill -->
-      <a href="profile.html" style="display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; color: #1e293b; cursor: pointer;">
-        <span style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #0f766e; color: #ffffff; font-size: 0.82rem; font-weight: 700;">
-          T
+      <!-- Right: Account Profile Pill -->
+      <a id="syllabus-account-link" href="#login" aria-label="Loading account" style="display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none; color: #1e293b; cursor: pointer;">
+        <span id="syllabus-account-avatar" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background-color: #0f766e; color: #ffffff; font-size: 0.82rem; font-weight: 700;">
+          …
         </span>
-        <span style="font-size: 0.88rem; font-weight: 600; color: #1e293b;">
-          Tharunesh
+        <span style="display: inline-flex; flex-direction: column; gap: 0.1rem;">
+          <span id="syllabus-account-name" style="font-size: 0.88rem; font-weight: 600; color: #1e293b; line-height: 1.2;">
+            Checking account…
+          </span>
+          <span id="syllabus-account-email" style="font-size: 0.68rem; color: #64748b; line-height: 1.2;"></span>
         </span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"></polyline>
@@ -207,8 +210,16 @@
     </div>
   </footer>
 
-  <!-- App Core Modules (Fast Local Load Only) -->
+  <!-- Firebase Compat Scripts -->
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Core Modules -->
+  <script defer src="js/firebase-config.js"></script>
   <script defer src="js/notifications.js"></script>
+  <script defer src="js/email-service.js"></script>
+  <script defer src="js/auth.js"></script>
   <script defer src="js/catalog-seed.js"></script>
   <script defer src="js/papers-seed.js"></script>
   <script defer src="js/syllabus.js"></script>
