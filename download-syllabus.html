@@ -4,17 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Previous Year Question Papers | TVU Books Shop</title>
-  <meta name="description" content="Download official Thiruvalluvar University department syllabus PDFs (all semesters complete regulation) and browse approved previous year semester exam question papers.">
+  <meta name="description" content="Download official Thiruvalluvar University department syllabus PDFs and browse approved previous year semester exam question papers.">
   <link rel="icon" type="image/png" href="assets/tvu-logo-sm.png">
 
   <!-- Core Stylesheets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap">
+  
   <style>
-    /* critical header styles (prevents a giant logo while the main stylesheet loads) */
+    /* critical header styles */
     #site-header-container:empty { min-height: 72px; }
     .brand-logo-img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
     .brand-wrapper { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
@@ -47,7 +46,7 @@
 
   <!-- Main Container -->
   <main class="container" style="flex:1;">
-<!-- Student Contribution Trigger Bar -->
+    <!-- Student Contribution Trigger Bar -->
     <div class="resource-admin-bar" id="resource-upload-trigger-bar">
       <div class="resource-admin-text">
         <strong>Contribute Question Papers:</strong> Have semester exam question papers to share with fellow students? Submit them for admin review.
@@ -62,13 +61,13 @@
     <!-- ========================================================================= -->
     <div class="resource-tab-content active" id="qp-tab" role="tabpanel" aria-labelledby="tab-btn-qp">
       
-      <!-- Dynamic Department Filter Pills (Generated ONLY from approved uploaded data) -->
+      <!-- Dynamic Department Filter Pills -->
       <div class="dept-filter-scroll-wrapper">
         <div class="dept-filter-label">
           <span>🏛️</span> Departments:
         </div>
         <div class="dept-filter-pills" id="qp-dept-pills-container">
-          <!-- Injected dynamically by js/syllabus.js based on actual approved data -->
+          <!-- Injected dynamically by js/syllabus.js -->
         </div>
       </div>
 
@@ -100,9 +99,7 @@
 
   </main>
 
-  <!-- ========================================================================= -->
-  <!-- Student / User Question Paper Submission Modal (Subject to Admin Review)  -->
-  <!-- ========================================================================= -->
+  <!-- Student / User Question Paper Submission Modal -->
   <div class="modal-backdrop" id="qp-submit-modal" role="dialog" aria-modal="true" aria-labelledby="qp-submit-title">
     <div class="modal-dialog" style="max-width:540px;">
       <div class="modal-header">
@@ -115,7 +112,6 @@
         </p>
 
         <form id="qp-submit-form" onsubmit="handleQuestionPaperSubmit(event)">
-          
           <div class="form-group">
             <label class="form-label" for="submit-dept">Department Name <span class="required">*</span></label>
             <input type="text" id="submit-dept" class="form-control" placeholder="e.g. B.Sc Computer Science, B.Com General, M.Sc Mathematics" required>
@@ -140,7 +136,7 @@
           <div class="form-group">
             <label class="form-label" for="submit-pdf-url">PDF Document URL <span class="required">*</span></label>
             <input type="url" id="submit-pdf-url" class="form-control" placeholder="https://.../question_paper.pdf" required>
-            <div class="form-help">Enter direct HTTPS link to the question paper PDF (e.g. Cloudinary or drive link).</div>
+            <div class="form-help">Enter direct HTTPS link to the question paper PDF.</div>
           </div>
 
           <div class="form-group">
@@ -154,7 +150,6 @@
               <span>Submit for Admin Review</span>
             </button>
           </div>
-
         </form>
       </div>
     </div>
@@ -167,7 +162,7 @@
         <div class="footer-brand">
           <h3>TVU Books Shop</h3>
           <p style="max-width:380px; line-height:1.6;">
-            The official student academic marketplace of Thiruvalluvar University. Promoting textbook reuse, affordable study materials, syllabus downloads, and seamless student exchange.
+            The official student academic marketplace of Thiruvalluvar University.
           </p>
         </div>
         <div class="footer-col">
@@ -176,38 +171,17 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="books.html">All Books</a></li>
             <li><a href="download-syllabus.html#papers">📝 Previous Year Question Papers</a></li>
-            <li><a href="wishlist.html">My Wishlist</a></li>
-            <li><a href="cart.html">My Cart</a></li>
-            <li><a href="orders.html">My Orders</a></li>
-            <li><a href="ai-support.html">🤖 AI Support</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Seller Hub</h4>
-          <ul class="footer-links">
-            <li><a href="seller.html">Become a Seller</a></li>
-            <li><a href="seller-books.html">List Books</a></li>
-            <li><a href="seller-orders.html">Incoming Orders</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 TVU Books Shop • Thiruvalluvar University • Built for Students & Faculty</p>
+        <p>© 2026 TVU Books Shop • Thiruvalluvar University</p>
       </div>
     </div>
   </footer>
 
-  <!-- Firebase Compat Scripts -->
-  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-  <!-- App Core Modules -->
-  <script defer src="js/firebase-config.js"></script>
+  <!-- App Core Modules (Fast Local Load Only) -->
   <script defer src="js/notifications.js"></script>
-  <script defer src="js/cloudinary-service.js"></script>
-  <script defer src="js/auth.js"></script>
-  <script defer src="js/cart.js"></script>
   <script defer src="js/catalog-seed.js"></script>
   <script defer src="js/papers-seed.js"></script>
   <script defer src="js/syllabus.js"></script>
