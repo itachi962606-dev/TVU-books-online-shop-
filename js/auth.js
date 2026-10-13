@@ -15,6 +15,15 @@ let authMode = 'login';        // 'login' | 'signup'
 let countUnsubs = [];
 const headerCounts = { wishlist: 0, cart: 0, orders: 0 };
 
+window.isValidOrderMobileNumber = (value) => /^[0-9]{10}$/.test(value);
+
+document.addEventListener('input', (event) => {
+  const input = event.target;
+  if (input instanceof HTMLInputElement && (input.id === 'order-cust-phone' || input.id === 'co-phone')) {
+    input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
+  }
+});
+
 const DEFAULT_AVATAR = '';
 let hintUser = null;   // last known user (from localStorage) used only for the very first paint
 

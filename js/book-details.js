@@ -372,6 +372,13 @@ function setupOrderForm() {
         return;
       }
 
+      if (!window.isValidOrderMobileNumber(phone)) {
+        showToast("Please enter a valid 10-digit mobile number.", "warning");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+        return;
+      }
+
       const unitPrice = Number(currentBook.discountedPrice) || Number(currentBook.originalPrice) || 0;
       const totalAmount = unitPrice * quantity;
 

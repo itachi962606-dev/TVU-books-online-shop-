@@ -147,6 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const phone = document.getElementById('co-phone').value.trim();
     const address = document.getElementById('co-address').value.trim();
     if (!name || !phone || !address) { showToast('Please fill in your name, phone and address.', 'warning'); return; }
+    if (!window.isValidOrderMobileNumber(phone)) {
+      showToast('Please enter a valid 10-digit mobile number.', 'warning');
+      return;
+    }
 
     const btn = form.querySelector('button[type="submit"]');
     const html = btn.innerHTML;

@@ -579,6 +579,10 @@ function setupOrderCheckoutForm() {
       const name = document.getElementById('order-cust-name').value.trim();
       const phone = document.getElementById('order-cust-phone').value.trim();
       const address = document.getElementById('order-cust-address').value.trim();
+      if (!window.isValidOrderMobileNumber(phone)) {
+        showToast("Please enter a valid 10-digit mobile number.", "warning");
+        return;
+      }
       const unitPrice = Number(selectedBookForOrder.discountedPrice) || Number(selectedBookForOrder.originalPrice) || 0;
       const total = unitPrice * qty;
 
